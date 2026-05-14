@@ -1,0 +1,24 @@
+# Web Framework & API
+fastapi
+uvicorn[standard]
+
+# Web Scraping & Automatización
+playwright
+beautifulsoup4
+lxml
+
+# Base de Datos (MongoDB Asíncrono)
+motor
+dnspython
+
+# Validación de Datos y Configuración
+pydantic
+pydantic-settings
+python-dotenv
+pyyaml
+
+# Programación de Tareas (Scheduler)
+apscheduler
+
+# Reload compatible con Playwright
+watchdog

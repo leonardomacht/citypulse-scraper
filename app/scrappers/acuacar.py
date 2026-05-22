@@ -8,12 +8,13 @@ class AcuacarScraper(BaseScraper):
         page = await context.new_page()
         await page.goto("https://acuacarapps.com:8096/AcuaFormSite/formulario/lista-mantenimientos", wait_until="networkidle")
         
+        cortes = []
 
         filas = await page.locator("//table//tbody//tr").all()
 
         for fila in filas:
             nombre = await fila.locator("xpath=.//td[1]").inner_text()
-            await page.locator('xpath=.//td//button').click()   
+            await fila.locator('xpath=.//td//button').click()   
             await page.locator("//button[1][@role='tab']").wait_for(state="visible")
             tabs = await page.locator("//button[@role='tab']").all()
             for i in range(0, len(tabs)):
@@ -22,13 +23,15 @@ class AcuacarScraper(BaseScraper):
                 await tabs[i].click()
             barrios = await page.locator("//div[@class='mt-5']").all()
             content = await page.content()
-            data = AcuacarParser.parse_html(content) 
+            data = AcuacarParser.parse_html(content)
+            cortes.append(data)
             if len(filas) > 1:
                 await (await page.locator("button").all())[0].click()
                 await page.wait_for_load_state("networkidle")
 
 
 
+
         
         await context.close()
-        return data
+        return cortes

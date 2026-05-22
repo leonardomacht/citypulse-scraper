@@ -11,7 +11,7 @@ async def force_scrape(service: str):
     try:
         browser = await browser_manager.get_browser()
         data = await scraper_manager.run_scraper(service, browser)
-        id = await CorteService.process_corte(data)
-        return {"message": "Corte guardado", "id": id}
+        keys = await CorteService.process_cortes(data)
+        return {"message": "Importe ejecutado correctament", "keys": keys}
     except ValueError as e:
         return {"status": "error", "message": str(e)}
